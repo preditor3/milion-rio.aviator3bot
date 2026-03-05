@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREDITOR MILIONÁRIO / BOT AVIATOR</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    /* Fundo gradiente mais claro */
+    background: linear-gradient(135deg,#1c3c50,#2c5870,#3a7b92);
+    color:white;
+    min-height:100vh;
+    padding:20px;
+}
+
+/* ===== TÍTULO ===== */
+.header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.header h1{
+    letter-spacing:2px;
+    font-size:22px;
+}
+
+.header p{
+    font-size:14px;
+    opacity:0.8;
+}
+
+/* ===== GRID ===== */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:20px;
+    max-width:900px;
+    margin:auto;
+}
+
+/* ===== CARD ===== */
+.card{
+    position:relative;
+    height:180px;
+    border-radius:18px;
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow:0 0 25px rgba(0,0,0,0.5);
+    transition:0.4s;
+}
+
+.card:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 40px rgba(0,255,204,0.4);
+}
+
+/* IMAGEM OCUPA TUDO */
+.card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.4s;
+}
+
+/* OVERLAY ESCURO LEVE */
+.card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0.05));
+    transition:0.4s;
+}
+
+/* NOME DA CASA */
+.card h3{
+    position:absolute;
+    bottom:15px;
+    left:15px;
+    font-size:18px;
+    letter-spacing:1px;
+    z-index:2;
+    color:#ffffff;
+    text-shadow: 0 0 5px rgba(0,0,0,0.7);
+}
+
+/* EFEITO HOVER */
+.card:hover img{
+    transform:scale(1.1);
+}
+
+.card:hover::after{
+    background:linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.1));
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>PLATAFORMAS DISPONÍVEIS</h1>
+    <p>Selecione sua casa de apostas</p>
+</div>
+
+<div class="grid">
+
+    <a href="bot.html" class="card">
+        <img src="logo1.jpg" alt="Elephant Bet">
+        <h3>Elephant Bet</h3>
+    </a>
+
+    <a href="bot.html" class="card">
+        <img src="logo2.jpg" alt="Bantubet">
+        <h3>Bantubet</h3>
+    </a>
+
+    <a href="bot.html" class="card">
+        <img src="logo3.jpg" alt="Premier Bet">
+        <h3>Premier Bet</h3>
+    </a>
+
+    <a href="bot.html" class="card">
+        <img src="logo4.jpg" alt="MOBET">
+        <h3>MOBET</h3>
+    </a>
+
+    <a href="bot.html" class="card">
+        <img src="logo5.jpg" alt="888BET">
+        <h3>888BET</h3>
+    </a>
+
+    <a href="bot.html" class="card">
+        <img src="logo6.jpg" alt="KWANZA BET">
+        <h3>KWANZA BET</h3>
+    </a>
+
+</div>
+
+</body>
+</html>

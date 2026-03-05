@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREDITOR MILIONÁRIO / BOT AVIATOR </title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html, body{overflow-x:hidden;}
+
+body{
+    font-family:'Inter', sans-serif;
+    background:#0b0f1a;
+    color:#fff;
+}
+
+/* HEADER */
+
+header{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-family:'Montserrat', sans-serif;
+    font-size:18px;
+    font-weight:800;
+}
+
+.logo span{color:#00e0ff;}
+
+nav{display:flex;gap:20px;}
+
+nav a{
+    text-decoration:none;
+    color:#aaa;
+    font-size:13px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    transition:0.3s;
+}
+
+nav a:hover{color:#00e0ff;}
+
+/* HERO */
+
+.hero{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    padding:80px 20px;
+    gap:60px;
+}
+
+.hero-text h1{
+    font-family:'Montserrat', sans-serif;
+    font-size:42px;
+}
+
+.hero-text span{color:#00e0ff;}
+
+.hero-text p{
+    margin-top:15px;
+    color:#bbb;
+    font-size:15px;
+    max-width:450px;
+}
+
+.hero-buttons{
+    margin-top:30px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:12px 22px;
+    border-radius:6px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    border:none;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    transition:0.3s;
+}
+
+.primary{background:#00e0ff;color:#000;}
+.primary:hover{background:#00bcd4;}
+
+.outline{
+    background:transparent;
+    border:1px solid #00e0ff;
+    color:#00e0ff;
+}
+.outline:hover{
+    background:#00e0ff;
+    color:#000;
+}
+
+/* HERO BOX */
+
+.hero-box{
+    background:#111827;
+    padding:30px;
+    border-radius:10px;
+    border:1px solid #1f2937;
+}
+
+.hero-box h3{margin-bottom:20px;}
+
+.stat{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:15px;
+    border-bottom:1px solid #1f2937;
+    padding-bottom:8px;
+}
+
+.stat span{
+    color:#00e0ff;
+    font-weight:600;
+}
+
+/* FEATURES SECTION */
+
+.features-section{
+    max-width:1200px;
+    margin:auto;
+    padding:80px 20px;
+}
+
+.features-section h2{
+    text-align:center;
+    font-family:'Montserrat', sans-serif;
+    font-size:28px;
+    margin-bottom:50px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:#111827;
+    padding:25px;
+    border-radius:10px;
+    border:1px solid #1f2937;
+    transition:0.3s;
+}
+
+.card:hover{
+    border-color:#00e0ff;
+    transform:translateY(-5px);
+}
+
+.card i{
+    font-size:22px;
+    color:#00e0ff;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:10px;
+    font-size:16px;
+}
+
+.card p{
+    font-size:14px;
+    color:#aaa;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:25px;
+    font-size:12px;
+    color:#666;
+}
+
+@media(max-width:900px){
+    .hero{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">PREDICT MILLION<span>AVIATOR</span></div>
+    <nav>
+        <a href="planos.html"><i class="fa-solid fa-layer-group"></i> Planos</a>
+        <a href="https://wa.me/244997628486" target="_blank">
+            <i class="fa-solid fa-headset"></i> Suporte
+        </a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-text">
+        <p1>PREDITOR MILIONÁRIO / BOT AVIATOR</p1>
+        <h1>Automação Inteligente<br>para o <span>Aviator</span></h1>
+        <p>Sistema baseado em estatística avançada para identificar oportunidades estratégicas em tempo real.</p>
+
+        <div class="hero-buttons">
+            <button onclick="window.location.href='login.html'" class="btn primary">
+                <i class="fa-solid fa-rocket"></i> Começar
+            </button>
+
+            <button onclick="window.location.href='teste.html'" class="btn outline">
+                <i class="fa-solid fa-play"></i> Testar grátis 
+            </button>
+        </div>
+    </div>
+
+    <div class="hero-box">
+        <h3><i class="fa-solid fa-chart-line"></i> Estatísticas ao Vivo</h3>
+
+        <div class="stat">
+            <p>Previsão</p>
+            <span id="precisao">--%</span>
+        </div>
+
+        <div class="stat">
+            <p>Entradas Hoje</p>
+            <span id="entradas">--</span>
+        </div>
+
+        <div class="stat">
+            <p>Usuários</p>
+            <span id="usuarios">--</span>
+        </div>
+    </div>
+
+</section>
+
+<!-- NOVA SEÇÃO ABAIXO -->
+
+<section class="features-section">
+
+    <h2>Por que escolher nosso sistema?</h2>
+
+    <div class="features">
+
+        <div class="card">
+            <i class="fa-solid fa-microchip"></i>
+            <h3>Alta Performance</h3>
+            <p>Algoritmo inteligente que analisa padrões simultaneamente.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h3>Segurança Total</h3>
+            <p>Arquitetura protegida com tecnologia moderna.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-gauge-high"></i>
+            <h3>Velocidade</h3>
+            <p>Processamento rápido para decisões em tempo real.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <h3>Atualizações Constantes</h3>
+            <p>Sistema evolui diariamente para maior precisão.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+© 2026 PREDITOR MILIONÁRIO / BOT AVIATOR 
+</footer>
+
+<script>
+
+function gerarPrecisao(){
+    let valor = Math.floor(Math.random() * 6) + 95;
+    document.getElementById("precisao").innerText = valor + "%";
+}
+
+function gerarEntradas(){
+    let valor = Math.floor(Math.random() * 501) + 500;
+    document.getElementById("entradas").innerText = valor;
+}
+
+function gerarUsuarios(){
+    let valor = Math.floor(Math.random() * 2001) + 1000;
+    document.getElementById("usuarios").innerText = valor;
+}
+
+gerarPrecisao();
+gerarEntradas();
+gerarUsuarios();
+
+setInterval(gerarPrecisao, 120000);
+setInterval(gerarEntradas, 300000);
+setInterval(gerarUsuarios, 60000);
+
+</script>
+
+</body>
+</html>

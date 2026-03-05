@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Painel ADM Completo</title>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+<style>
+body{
+    background:#0f2027;
+    color:white;
+    font-family:Segoe UI;
+    padding:30px;
+}
+
+/* SEPARAÇÃO VISUAL */
+.section{
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:30px;
+    box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+.section h2{
+    margin-bottom:15px;
+    border-bottom:1px solid rgba(255,255,255,0.2);
+    padding-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:12px;
+    border-radius:8px;
+    border:none;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+.btn-quantum{
+    background:linear-gradient(45deg,#00ffcc,#ff00aa);
+}
+
+.btn-bot{
+    background:linear-gradient(45deg,#ff007a,#ff6600);
+}
+
+.success{
+    margin-top:10px;
+    font-size:14px;
+    color:#00ff9d;
+}
+</style>
+</head>
+
+<body>
+
+<h1>PAINEL ADMINISTRADOR GERAL</h1>
+
+<!-- ===== PAINEL QUANTUM ===== -->
+<div class="section">
+<h2>⚡ Quantum Signal AI</h2>
+
+<input type="text" id="valorQuantum" placeholder="Multiplicador Ex: 3.50X">
+<input type="text" id="statusQuantum" placeholder="Status Ex: ● Sinal Liberado">
+<input type="number" id="tempoQuantum" placeholder="Tempo próximo sinal (segundos)">
+
+<button class="btn-quantum" onclick="enviarQuantum()">ENVIAR SINAL QUANTUM</button>
+
+<div class="success" id="msgQuantum"></div>
+</div>
+
+<!-- ===== PAINEL BOT MILIONÁRIO ===== -->
+<div class="section">
+<h2>🤖 Bot Milionário</h2>
+
+<input type="text" id="tituloBot" placeholder="Texto do topo">
+<input type="text" id="protecaoBot" placeholder="Proteção Ex: 2.5X">
+<input type="text" id="graficoBot" placeholder="Gráfico Ex: 87%">
+<input type="text" id="saidaBot" placeholder="Saída Ex: 3.0X">
+
+<button class="btn-bot" onclick="enviarBot()">ENVIAR SINAL BOT</button>
+
+<div class="success" id="msgBot"></div>
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyChrog4zZNoK8HTMl1MTMD43U7HHxBMtVw",
+  databaseURL: "https://palpite3ad-default-rtdb.firebaseio.com",
+  projectId: "palpite3ad"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+/* ===== ENVIAR SINAL QUANTUM ===== */
+function enviarQuantum(){
+    let valor = document.getElementById("valorQuantum").value;
+    let status = document.getElementById("statusQuantum").value;
+    let tempo = document.getElementById("tempoQuantum").value;
+
+    db.ref("quantumSinal").set({
+        valor: valor,
+        status: status,
+        tempo: parseInt(tempo),
+        timestamp: Date.now()
+    });
+
+    db.ref("historicoQuantum").push({
+        valor: valor,
+        data: new Date().toLocaleString()
+    });
+
+    document.getElementById("msgQuantum").innerText = "Sinal Quantum enviado com sucesso!";
+}
+
+/* ===== ENVIAR SINAL BOT ===== */
+function enviarBot(){
+    db.ref("sinais").set({
+        titulo: document.getElementById("tituloBot").value,
+        protecao: document.getElementById("protecaoBot").value,
+        grafico: document.getElementById("graficoBot").value,
+        saida: document.getElementById("saidaBot").value
+    });
+
+    document.getElementById("msgBot").innerText = "Sinal do Bot enviado com sucesso!";
+}
+</script>
+
+</body>
+</html>
